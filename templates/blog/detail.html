@@ -20,6 +20,9 @@
 									<ul>
 										<li> {{ comment.text }}	 </li><br>
 									</ul>
+									{% if comment.commenter == request.user  or user.is_superuser %}
+									<a href="{% url 'blog:delete_comment' comment.id %}"><button type="button" name="button">Delete</button></a>
+									{% endif %}
 									<span class="hidden-xs"style="margin-left:60%;, font-family:Arial">Published: {{ comment.created_on }}</span >
 									{% endfor %}
 								{% else %}

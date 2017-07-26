@@ -11,7 +11,6 @@ urlpatterns = [
     url(r'^about/$', views.about, name='about'),
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.handle_login, name='handle_login'),
-    url(r'^logout/$', views.handle_logout, name='handle_logout')
-
-
+    url(r'^logout/$', views.handle_logout, name='handle_logout'),
+    url(r'^(?P<comment_id>[0-9]+)/delete_comment/$', views.delete_comment, name='delete_comment'),
 ]

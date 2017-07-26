@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from .models import Post, Comment
@@ -39,10 +39,14 @@ def detail(request, post_slug):
     context = {'post':post,'form':form,'comments':comments,'recent_comments':recent_comments,'recent_posts':recent_posts}
     return render(request, 'blog/detail.html',context)
 
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    comment.delete()
+    return detail(request,comment.post.slug)
+
 def recent_comments():
     recent_comments = Comment.objects.all().filter(created_on__lte=timezone.now()).order_by('-created_on')[:4]
     return recent_comments
-
 
 def recent_posts():
     recent_posts = Post.objects.all().filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:4]
@@ -67,7 +71,7 @@ def handle_login(request):
 def register(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/')
-    # if its a post request let the form send dat
+    # if its a post request let the form send data
     form = RegisterForm()
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -87,14 +91,6 @@ def register(request):
 def handle_logout(request):
     logout(request)
     return redirect('blog:index')
-
-# @login_required
-# def add_comment(request,post_slug):
-#
-#             return detail(request,post_slug)
-#
-#     return render(request,'blog/detail.html',{'form':form, 'post':post})
-
 
 def contact(request):
     return render(request, 'blog/contact.html', {})
