@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from tinymce import models as tinymce_models
 # Create your models here.
 
 class Post(models.Model):
@@ -28,7 +29,7 @@ class Comment(models.Model):
     email = models.EmailField(max_length=50)
     post = models.ForeignKey(Post)
     created_on = models.DateTimeField(default=timezone.now())
-    text = models.CharField(max_length=1500)
+    text = tinymce_models.HTMLField()
 
     def __str__(self):
         return self.text

@@ -1,5 +1,6 @@
 {% extends 'blog/base.html' %}
 {% load staticfiles %}
+
 <body>
 
 	{% block body_block %}
@@ -8,7 +9,7 @@
 			 <div class="container">
 				  <div class="col-md-8 single-main">
 					  <div class="single-grid">
-							<h4><a href="{% url 'blog:detail' post.slug %}">{{ post.title }}</a></h4>
+							<h4><a href="{% url 'blog:detail' post.slug %}">{{ post.title|safe }}</a></h4>
 							<img src="{% static 'images/post1.jpg' %}" alt=""/>
 							<p>{{ post.text }}</p>
 					  </div>
@@ -18,12 +19,15 @@
 									{% for comment in comments %}
 									<h3>~{{ comment.commenter.first_name|title}} {{comment.commenter.last_name|title }}</h3>
 									<ul>
-										<li> {{ comment.text }}	 </li><br>
+										<li>
+												{{ comment.text|safe }}
+										</</li><br>
 									</ul>
+									<span class="hidden-xs"style="margin-left:70%;, font-family:Arial">Published: {{ comment.created_on }}</span >
 									{% if comment.commenter == request.user  or user.is_superuser %}
-									<a href="{% url 'blog:delete_comment' comment.id %}"><button type="button" name="button">Delete</button></a>
+											<a href="{% url 'blog:delete_comment' comment.id %}"><button style="margin-left:90%;,line-height: .9;color: red;, font-family:Arial;" type="button" name="button">Delete</button></a>
 									{% endif %}
-									<span class="hidden-xs"style="margin-left:60%;, font-family:Arial">Published: {{ comment.created_on }}</span >
+
 									{% endfor %}
 								{% else %}
 									No comments available

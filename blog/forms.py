@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from tinymce.widgets import TinyMCE
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(label='Email',max_length=50)
@@ -32,7 +33,7 @@ class LoginForm(forms.Form):
         fields = ('username', 'password', )
 
 class CommentForm(forms.ModelForm):
-    text = forms.CharField(help_text='Enter a Comment',widget=forms.Textarea)
+    text = forms.CharField(help_text='Enter a Comment',widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
     name = forms.CharField(widget=forms.HiddenInput(), initial="User")
     created_on = forms.DateTimeField(widget=forms.HiddenInput(), initial=timezone.now())
     email = forms.CharField(widget=forms.HiddenInput(), initial="default@gmail.com")

@@ -27,6 +27,8 @@ TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '!^go(7&w#yl^tlg^ov5(=t4^2!!q0kt8e5le^(t88+pxqtrb&s'
 
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
