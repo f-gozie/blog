@@ -1,0 +1,105 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+<body>
+
+	{% block body_block %}
+	{% if post %}
+		<div class="single">
+			 <div class="container">
+				  <div class="col-md-8 single-main">
+					  <div class="single-grid">
+							<h4><a href="{% url 'blog:detail' post.slug %}">{{ post.title }}</a></h4>
+							<img src="{% static 'images/post1.jpg' %}" alt=""/>
+							<p>{{ post.text }}</p>
+					  </div>
+						<div class="comments">
+							<h2><u>Comments</u></h2>
+								{% if comments %}
+									{% for comment in comments %}
+									<h3>~{{ comment.commenter.first_name|title}} {{comment.commenter.last_name|title }}</h3>
+									<ul>
+										<li> {{ comment.text }}	 </li><br>
+									</ul>
+									<span class="hidden-xs"style="margin-left:60%;, font-family:Arial">Published: {{ comment.created_on }}</span >
+									{% endfor %}
+								{% else %}
+									No comments available
+								{% endif %}
+						</div>
+					  <div class="content-form">
+							 <h3>Leave a comment</h3>
+							 {% if user.is_authenticated %}
+								<form id="comment_form" action="{% url 'blog:detail' post.slug %}" method="post">
+									{% csrf_token %}
+										{% for hidden in form.hidden_fields %}
+												{{ hidden }}
+										{% endfor %}
+										{% for field in form.visible_fields %}
+											{{ field.errors }}
+
+											{{ field }}<br/><br/>
+										{% endfor %}
+										<input class="btn btn-primary" type="submit" name="submit" value="submit">
+								</form>
+								{% else %}
+								<a href="{% url 'blog:handle_login' %}">You must be logged in to comment</a>
+								{% endif %}
+								 </div>
+
+
+
+						 <ul class="comment-list " >
+					  		   <h5 class="post-author_head">Written by <a href="#" title="Posts by admin" rel="author">{{ post.author.first_name|title }}  {{ post.author.last_name|title }}</a></h5>
+					  		   <li><img src="{% static 'images/avatar.png' %}" class="img-responsive" alt="">
+					  		   <div class="desc">
+					  		   <p>View all posts by: <a href="#" title="Posts by admin" rel="author">{{ post.author.first_name|title }}  {{ post.author.last_name|title }}</a></p>
+					  		   </div>
+					  		   <div class="clearfix"></div>
+					  		   </li>
+					  	  </ul>
+				  </div>
+					<div class="col-md-4 side-content">
+						<div class="recent">
+ 						 <h3>RECENT POSTS</h3>
+ 						 {% if recent_posts %}
+ 						 <ul>
+ 							 {% for post in recent_posts %}
+ 						 <li><a href="{% url 'blog:detail' post.slug %}">{{post.title|title }}</a></li>
+ 						 {% endfor %}
+ 						 </ul>
+ 						 {% else %}
+ 					 <li><a href="#">No post has been posted</a></li>
+ 						 {% endif %}
+ 					 </div>
+ 					 <div class="comments">
+ 						 <h3>RECENT COMMENTS</h3>
+ 						 {% if recent_comments %}
+ 						 <ul>
+ 							 {% for comment in recent_comments %}
+ 						 <li><a href="{% url 'blog:detail' comment.post.slug %}">{{comment.commenter|title}} on {{comment.post|title}}</a></li>
+ 							{% endfor %}
+ 						 </ul>
+ 						 {% else %}
+ 						 <li><a href="#">No comments at the moment</a></li>
+ 						 {% endif %}
+ 					 </div>
+					 <div class="clearfix"></div>
+					 <div class="archives">
+						 <h3>ARCHIVES</h3>
+						 <ul>
+						 <li><a href="#">October 2013</a></li>
+						 <li><a href="#">September 2013</a></li>
+						 <li><a href="#">August 2013</a></li>
+						 <li><a href="#">July 2013</a></li>
+						 </ul>
+					 </div>
+					 <div class="clearfix"></div>
+					</div>
+
+					  <div class="clearfix"></div>
+				  </div>
+			  </div>
+		{% else %}
+		asadsh
+		{% endif %}
+		{% endblock %}

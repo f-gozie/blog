@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+{% block title %}Register{% endblock %}
+
+{% block body_block %}
+<script type="text/javascript">
+$(document).ready(function() {
+  $('input').addClass('form-control');
+});
+</script>
+<br><br>
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <h2 class="text-center">Register</h2>
+  <form role="form" method="POST" action="{% url 'blog:register' %}">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-group">
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+              <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endfor %}
+    <strong><p style="color:red">Note: Username would be your firstname underscore(_) your last name.</p></strong><br/>
+    <p style="font-size:14px; color:grey;">example: firstname = mark, lastname = will, username = mark_will</p><br>
+
+    <button type="submit" class="btn btn-danger btn-block">Submit</button>
+  </form>
+</div>
+  <div class="col-md-4"></div>
+</div>
+<br><br>
+{% endblock %}

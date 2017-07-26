@@ -1,0 +1,103 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+{% load staticfiles %}
+<!DOCTYPE HTML>
+<html>
+<head>
+  <link rel="shortcut icon" href="{% static 'images/dove.ico' %}" />
+	<title>
+    {% block title_block %}
+          Kingdom Ambassadors
+    {% endblock %}
+  </title>
+	<link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
+	<link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="kingdom ambassadors, Godswill Iyoke"
+	/>
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<!----webfonts---->
+		<link href='http://fonts.googleapis.com/css?family=Oswald:100,400,300,700' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,300italic' rel='stylesheet' type='text/css'>
+		<!----//webfonts---->
+		  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<!--end slider -->
+		<!--script-->
+<script type="text/javascript" src="{% static 'js/move-top.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+<!--/script-->
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+				});
+			});
+</script>
+<!---->
+
+</head>
+
+  <!---header---->
+
+ <div class="container">
+  <div class="header">
+
+  		  <div class="logo">
+    			  <a href="{% url 'blog:index' %}"><img src="{% static 'images/dove_edit.png' %}" title="" /></a>
+  		  </div>
+  			 <!---start-top-nav---->
+  			 <div class="top-menu top-menu-danger">
+  				 <div class="search">
+  					 <form>
+  					 <input type="text" placeholder="" required="">
+  					 <input type="submit" value=""/>
+  					 </form>
+  				 </div>
+  				  <span class="menu"> </span>
+  				   <ul>
+  						<li class="active"><a href="{% url 'blog:index' %}">HOME</a></li>
+  						<li><a href="{% url 'blog:about' %}">ABOUT</a></li>
+  						<li><a href="{% url 'blog:contact' %}">CONTACT</a></li>
+              {% if user.is_authenticated %}
+              <li><a href="{% url 'blog:handle_logout' %}">Logout</a></li>
+              <li><p>Hey {{user.first_name}}</p></li>
+              {% else %}
+              <li><a href="{% url 'blog:handle_login' %}">LOGIN</a></li>
+  						<li><a href="{% url 'blog:register' %}">REGISTER</a></li>
+              {% endif %}
+              {% if user.is_superuser %}
+              {% endif %}
+  						<div class="clearfix"> </div>
+  				 </ul>
+  			 </div>
+  			 <div class="clearfix"></div>
+  					<script>
+  					$("span.menu").click(function(){
+  					$(".top-menu ul").slideToggle("slow" , function(){
+  					});
+  					});
+  					</script>
+  				<!---//End-top-nav---->
+  	 </div>
+  </div>
+  <!--/header-->
+  <body>
+  {% block body_block %}
+
+  {% endblock %}
+
+</body>
+
+<br><br>
+<!--Footer-->
+<div class="footer">
+   <div class="container">
+   <p>A work by Ose Iyoke</p> <p>Copyrights © 2017 Blog All rights reserved <br> Template by <a href="http://w3layouts.com/">W3layouts</a></p>
+   </div>
+</div>

@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body_block %}
+<script type="text/javascript">
+$(document).ready(function() {
+  $('input').addClass('form-control');
+});
+</script>
+<br><br>
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <h2 class="text-center">Login </h2>
+  <form role="form" method="POST" action="{% url 'blog:handle_login' %}">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+      <div class="form-group">
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+              <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+    {% endfor %}
+
+  </div>
+    <button type="submit" class="btn btn-danger btn-block">Login</button><br>
+      Don't have an account? <a href="{% url 'blog:register' %}">Register</a><br>
+  </form>
+</div>
+  <div class="col-md-4"></div>
+</div>
+<br><br><br><br><br><br><br><br><br><br>
+{% endblock %}
