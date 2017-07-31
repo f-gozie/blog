@@ -5,7 +5,7 @@ from .models import Post, Comment
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.utils import timezone
-from .forms import RegisterForm, LoginForm, CommentForm
+from .forms import RegisterForm, LoginForm, CommentForm, PostForm
 # Create your views here.
 
 def index(request):
@@ -38,6 +38,39 @@ def detail(request, post_slug):
     recent_posts()
     context = {'post':post,'form':form,'comments':comments,'recent_comments':recent_comments,'recent_posts':recent_posts}
     return render(request, 'blog/detail.html',context)
+
+@login_required(login_url='/login/')
+def post(request):
+    form = PostForm()
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+            return index(request)
+        else:
+            print(form.errors)
+    return render(request, 'blog/post.html', {'form':form})
+
+def edit_post(request, post_id):
+    # form = get_object_or_404(Post, pk=post_id)
+    form = PostForm()
+    if request.method == 'POST':
+        form  = PostForm(request.POST)
+
+        if form.is_valid():
+            form = get_object_or_404(Post, pk=post_id)
+            form.save(commit=True)
+            return detail(request, post.slug)
+        else:
+            print(form.errors)
+    return render(request, 'blog/edit_post.html', {'form':form})
+
+
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    post.delete()
+    return index(request)
 
 def delete_comment(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)

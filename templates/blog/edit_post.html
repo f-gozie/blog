@@ -1,0 +1,41 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}Edit Post{% endblock %}
+
+{% block body_block %}
+<script type="text/javascript">
+$(document).ready(function() {
+  $('input').addClass('form-control');
+});
+</script>
+</script>
+<br><br>
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <h2 class="text-center">Login </h2>
+  <form role="form" method="POST" action="{% url 'blog:post' %}">
+    {% csrf_token %}
+    {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+    {{ form.non_field_errors }}
+    {% for field in form.visible_fields %}
+      <div class="form-group">
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+              <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+    {% endfor %}
+
+  </div>
+    <button type="submit" class="btn btn-danger btn-block">Save changes</button><br>
+      Don't have an account? <a href="{% url 'blog:register' %}">Register</a><br>
+  </form>
+</div>
+  <div class="col-md-4"></div>
+</div>
+<br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

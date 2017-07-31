@@ -76,6 +76,7 @@ tinyMCE.init({
   				   <ul>
   						<li class="active"><a href="{% url 'blog:index' %}">HOME</a></li>
   						<li><a href="{% url 'blog:about' %}">ABOUT</a></li>
+              <li><a href="{% url 'blog:post' %}">CREATE POST</a></li>
   						<li><a href="{% url 'blog:contact' %}">CONTACT</a></li>
               {% if user.is_authenticated %}
               <li><a href="{% url 'blog:handle_logout' %}">Logout</a></li>

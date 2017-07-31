@@ -106,6 +106,10 @@
 					  <div class="clearfix"></div>
 				  </div>
 			  </div>
+			  {% if comment.commenter == request.user  or user.is_superuser %}
+			  		<a href="{% url 'blog:delete_post' post.id %}"><button style="margin-left:90%;,line-height: .9;color: red;, font-family:Arial;" type="button" name="button">Delete Post</button></a>
+			  		<a href="{% url 'blog:edit_post' post.id %}"><button style="margin-left:90%;,line-height: .9;color: red;, font-family:Arial;" type="button" name="button">Edit Post</button></a>
+			  {% endif %}
 		{% else %}
 		asadsh
 		{% endif %}

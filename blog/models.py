@@ -10,9 +10,10 @@ class Post(models.Model):
     title = models.CharField(max_length=150)
     pub_date = models.DateTimeField(default=timezone.now())
     text = models.TextField()
-    likes = models.IntegerField()
-    views = models.IntegerField()
+    likes = models.IntegerField(default=0)
+    views = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
+    email = models.EmailField(max_length=50, default='kingdom@gmail.com')
 
     def save(self, *args, **kwargs):
         # self.author = self.author.upper()

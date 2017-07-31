@@ -12,5 +12,8 @@ urlpatterns = [
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.handle_login, name='handle_login'),
     url(r'^logout/$', views.handle_logout, name='handle_logout'),
+    url(r'^post/$', views.post, name='post'),
+    url(r'^(?P<post_id>[0-9]+)/edit_post/$', views.edit_post, name='edit_post'),
+    url(r'^(?P<post_id>[0-9]+)/delete_post/$', views.delete_post, name='delete_post'),
     url(r'^(?P<comment_id>[0-9]+)/delete_comment/$', views.delete_comment, name='delete_comment'),
 ]
