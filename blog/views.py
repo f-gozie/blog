@@ -46,7 +46,9 @@ def post(request):
         form = PostForm(request.POST)
 
         if form.is_valid():
-            form.save(commit=True)
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
             return index(request)
         else:
             print(form.errors)
@@ -54,12 +56,12 @@ def post(request):
 
 def edit_post(request, post_id):
     # form = get_object_or_404(Post, pk=post_id)
+    instance = get_object_or_404(Post, pk=post_id)
     form = PostForm()
     if request.method == 'POST':
-        form  = PostForm(request.POST)
-
+        form  = PostForm(request.POST or None, instance=instance)
         if form.is_valid():
-            form = get_object_or_404(Post, pk=post_id)
+            # form = get_object_or_404(Post, pk=post_id)
             form.save(commit=True)
             return detail(request, post.slug)
         else:

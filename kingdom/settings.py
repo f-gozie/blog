@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -47,6 +46,21 @@ INSTALLED_APPS = [
     'blog',
     'tinymce',
 ]
+
+TINYMCE_INCLUDE_JQUERY = False
+TINYMCE_SPELLCHECKER = True
+# TINYMCE_COMPRESSOR = True
+TINYMCE_DEFAULT_CONFIG = {
+    'theme':'advanced',
+    'plugins':'table, spellchecker, paste, searchreplace',
+    'menubar':'edit',
+    'toolbar':'paste,attach',
+    'theme_advanced_buttons1':'bold, paste, attach, italic, underline, bullist, numlist, link, unlink, styleselect, fontsizeselect',
+    'width':'100%',
+    'height':'300',
+    'valid_styles':'font-weight, font-style, text-decoration',
+    'fontsize_default':'24pt',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

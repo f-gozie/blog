@@ -8,6 +8,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
+<script src="{% static 'tinymce/js/tinymce/tinymce.min.js' %}"></script>
   <link rel="shortcut icon" href="{% static 'images/dove.ico' %}" />
 	<title>
     {% block title_block %}
@@ -76,16 +77,16 @@ tinyMCE.init({
   				   <ul>
   						<li class="active"><a href="{% url 'blog:index' %}">HOME</a></li>
   						<li><a href="{% url 'blog:about' %}">ABOUT</a></li>
-              <li><a href="{% url 'blog:post' %}">CREATE POST</a></li>
   						<li><a href="{% url 'blog:contact' %}">CONTACT</a></li>
+              {% if user.is_superuser %}
+              <li><a href="{% url 'blog:post' %}">CREATE POST</a></li>
+              {% endif %}
               {% if user.is_authenticated %}
               <li><a href="{% url 'blog:handle_logout' %}">Logout</a></li>
               <li><p>Hey {{user.first_name}}</p></li>
               {% else %}
               <li><a href="{% url 'blog:handle_login' %}">LOGIN</a></li>
   						<li><a href="{% url 'blog:register' %}">REGISTER</a></li>
-              {% endif %}
-              {% if user.is_superuser %}
               {% endif %}
   						<div class="clearfix"> </div>
   				 </ul>

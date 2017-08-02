@@ -14,7 +14,7 @@
 								 <img src="{% static 'images/post1.jpg' %}" alt=""/>
 								 <div class="post-info">
 								 <h4><a href="{% url 'blog:detail' post.slug %}">{{ post.title }}</a> {{ post.pub_date }} / {{ post.comment_set.count }} comment{{ post.comment_set.count|pluralize:"s" }}</h4>
-								 <p>{{ post.text|slice:":150" }} </p>
+								 <p>{{ post.text|safe|slice:":150" }} </p>
 								 <a href="{% url 'blog:detail' post.slug %}"><span></span>READ MORE</a>
 								 <div class="views-and-likes">
 									<a href="#"> Views:{{ post.views}}</a>

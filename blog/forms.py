@@ -33,14 +33,14 @@ class LoginForm(forms.Form):
         fields = ('username', 'password', )
 
 class PostForm(forms.ModelForm):
-    text = forms.CharField(help_text='Enter your Post here', widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
+    text = forms.CharField(help_text='Enter your Post here', widget=TinyMCE(attrs={'cols': 80, 'rows': 10}))
     name = forms.CharField(widget=forms.HiddenInput(), initial='User')
     created_on = forms.DateTimeField(widget=forms.HiddenInput(), initial=timezone.now())
-    email = forms.CharField(help_text='Not compulsory', required=False)
+   
 
     class Meta:
         model = Post
-        fields = ('author', 'title', 'email', 'text',)
+        fields = ('title', 'text',)
 
 class CommentForm(forms.ModelForm):
     text = forms.CharField(help_text='Enter a Comment',widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
