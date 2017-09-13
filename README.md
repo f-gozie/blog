@@ -5,10 +5,13 @@ A simple sample blog website
 
 ### How do I get set up? ###
 
-Install Django 1.8 or higher
-Install TinyMCE
-Install Pillow (optional)
-Install Django-Registration-Redux
+Install Django 1.8 or higher.
+
+Install TinyMCE.
+
+Install Pillow (optional).
+
+Install Django-Registration-Redux.
 
 ### Contribution guidelines ###
 
